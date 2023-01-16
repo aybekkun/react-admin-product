@@ -1,6 +1,23 @@
 .root {
   border-right: 1px solid #e0e0e0;
   position: relative;
+  
+  &.active {
+    h2 {
+      display: none;
+    }
+    a {
+      svg {
+        margin-right: 0;
+      }
+      span {
+        display: none;
+      }
+    }
+    .bottom {
+      display: none;
+    }
+  }
 }
 
 .menu {

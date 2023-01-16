@@ -2,6 +2,10 @@
   display: grid;
   grid-template-columns: 2fr 10fr;
   min-height: 100vh;
+
+  &.active {
+    grid-template-columns: 60px 10fr;
+  }
 }
 .main {
   position: relative;
