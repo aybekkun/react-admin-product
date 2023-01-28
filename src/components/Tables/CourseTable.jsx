@@ -1,5 +1,5 @@
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import {
-  Button,
   IconButton,
   Paper,
   Table,
@@ -7,12 +7,21 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
+  TableRow
 } from "@mui/material";
 import dayjs from "dayjs";
 import React from "react";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { useDispatch } from "react-redux";
+import { deleteCourse } from "../../redux/course/asyncActions";
+import { setCourseCount } from "../../redux/course/slice";
 const CourseTable = ({ data, currentPage = 1 }) => {
+  const dispatch = useDispatch();
+  const onDelete = async (id) => {
+    if (window.confirm("Delete course?")) {
+      await dispatch(deleteCourse({ id: id }));
+      dispatch(setCourseCount());
+    }
+  };
   return (
     <div>
       <TableContainer component={Paper}>
@@ -48,7 +57,7 @@ const CourseTable = ({ data, currentPage = 1 }) => {
                 <TableCell align="right">{course.clicked}</TableCell>
                 <TableCell align="right">{dayjs(course.createdAt).format("DD-MM-YYYY")}</TableCell>
                 <TableCell align="right">
-                  <IconButton color="error">
+                  <IconButton onClick={() => onDelete(course.id)} color="error">
                     <DeleteOutlineOutlinedIcon />
                   </IconButton>
                 </TableCell>

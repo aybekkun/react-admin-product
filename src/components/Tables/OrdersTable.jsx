@@ -1,7 +1,7 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React from "react";
 import dayjs from "dayjs";
-import SendMessage from "../SendMessage";
+import SendMessage from "../TableFunctions/SendMessage";
 
 const OrdersTable = ({ data = [], currentPage = 1 }) => {
   return (

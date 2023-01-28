@@ -10,7 +10,7 @@ import { setSearchClean } from "../../redux/search/slice";
 import styles from "./Leads.module.scss";
 const Leads = () => {
   const dispatch = useDispatch();
-  const { data, total, currentPage, isLoading } = useSelector((state) => state.leads);
+  const { data, total, currentPage, isLoading, count } = useSelector((state) => state.leads);
   const { searchParams } = useSelector((state) => state.search);
   const isMounted = React.useRef(false);
   React.useEffect(() => {
@@ -27,7 +27,7 @@ const Leads = () => {
     return () => {
       dispatch(setSearchClean());
     };
-  }, [currentPage, dispatch]);
+  }, [currentPage, dispatch, count]);
 
   if (data.length < 1 && isLoading) {
     return <CircularProgress />;

@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchLeads } from "./asyncActions";
+import { createLeadsComment, fetchLeads } from "./asyncActions";
 
 const initialState = {
   data: [],
   total: 0,
   currentPage: 1,
   isLoading: false,
+  count: 0,
+  isSendingComment: false,
 };
 
 export const leadSlice = createSlice({
@@ -14,6 +16,9 @@ export const leadSlice = createSlice({
   reducers: {
     setLeadPage(state, action) {
       state.currentPage = action.payload;
+    },
+    setLeadsCount(state) {
+      state.count++;
     },
   },
   extraReducers: (builder) => {
@@ -30,10 +35,19 @@ export const leadSlice = createSlice({
       state.data = [];
       state.total = 0;
     });
+    builder.addCase(createLeadsComment.fulfilled, (state, action) => {
+      state.isSendingComment = false;
+    });
+    builder.addCase(createLeadsComment.pending, (state) => {
+      state.isSendingComment = true;
+    });
+    builder.addCase(createLeadsComment.rejected, (state) => {
+      state.isSendingComment = false;
+    });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setLeadPage } = leadSlice.actions;
+export const { setLeadPage, setLeadsCount } = leadSlice.actions;
 
 export default leadSlice.reducer;

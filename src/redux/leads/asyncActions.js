@@ -12,3 +12,12 @@ export const fetchLeads = createAsyncThunk("leads/fetchLeads", async (params, th
     return thunkAPI.rejectWithValue("Ошибка " + error);
   }
 });
+
+export const createLeadsComment = createAsyncThunk("leads/createLeadsComment", async (params, thunkAPI) => {
+  try {
+    const { data } = await $host.patch(`/lead`, params);
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Ошибка " + error);
+  }
+});

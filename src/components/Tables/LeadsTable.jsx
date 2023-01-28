@@ -1,8 +1,10 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Box } from "@mui/system";
 import dayjs from "dayjs";
 import React from "react";
-import SendMessage from "../SendMessage";
-
+import CreateComment from "../TableFunctions/CreateComment";
+import SendMessage from "../TableFunctions/SendMessage";
+import ShowComment from "../TableFunctions/ShowComment";
 const LeadsTable = ({ data, currentPage = 1 }) => {
   return (
     <div>
@@ -39,15 +41,18 @@ const LeadsTable = ({ data, currentPage = 1 }) => {
               <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell>{(currentPage - 1) * 10 + i + 1}</TableCell>
                 <TableCell component="th" scope="row">
-                  {lead.FIO}
+                  {lead.FIO.slice(0, 32)}
                 </TableCell>
                 <TableCell align="right">{lead.phone}</TableCell>
-                <TableCell align="right">{lead.source}</TableCell>
+                <TableCell align="right">{lead.instrument?.name}</TableCell>
                 <TableCell align="right">{lead.status}</TableCell>
-                <TableCell align="right">{lead.comment}</TableCell>
+                <TableCell align="right"><ShowComment text={lead.comment}/></TableCell>
                 <TableCell align="right">{dayjs(lead.createdAt).format("DD-MM-YYYY")}</TableCell>
                 <TableCell align="right">
-                  <SendMessage userId={lead.user_id} />
+                  <div style={{ display: "flex" }}>
+                    <SendMessage userId={lead.user_id} />
+                    <CreateComment userId={lead.user_id} />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

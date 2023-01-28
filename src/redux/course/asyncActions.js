@@ -21,3 +21,12 @@ export const createCourse = createAsyncThunk("course/createCourse", async (param
     return thunkAPI.rejectWithValue("Ошибка " + error);
   }
 });
+
+export const deleteCourse = createAsyncThunk("course/deleteCourse", async (params, thunkAPI) => {
+  try {
+    const { data } = await $host.delete(`/course/${params.id}`);
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Ошибка " + error);
+  }
+});
