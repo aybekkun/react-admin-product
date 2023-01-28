@@ -7,10 +7,10 @@ import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutl
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import HandymanOutlinedIcon from "@mui/icons-material/HandymanOutlined";
-
+import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import { COURSES, INSTRUMENTS, ORDERS, SETTINGS } from "../../helpers/constants/routs";
+import { COURSES, INSTRUMENTS, ORDERS, SETTINGS, SUPPORT } from "../../helpers/constants/routs";
 import { useDispatch, useSelector } from "react-redux";
 import { setActive } from "../../redux/effect/slice";
 const Sidebar = () => {
@@ -61,6 +61,12 @@ const Sidebar = () => {
                 <span>Settings</span>
               </Link>
             </li>
+        {/*     <li>
+              <Link to={SUPPORT}>
+                <QuestionMarkOutlinedIcon color="action" />
+                <span>Support</span>
+              </Link>
+            </li> */}
           </ul>
         </div>
         <div className={styles.bottom}>Made by Karsoft.uz</div>

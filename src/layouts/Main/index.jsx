@@ -7,10 +7,8 @@ import Leads from "../../pages/Leads";
 import { setActive } from "../../redux/effect/slice";
 import styles from "./Main.module.scss";
 const Main = () => {
-
   const { active } = useSelector((state) => state.effect);
 
- 
   return (
     <div className={active ? `${styles.root} ${styles.active}` : `${styles.root}`}>
       <Sidebar />
