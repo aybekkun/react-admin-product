@@ -1,7 +1,10 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import React from "react";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import dayjs from "dayjs";
+import React from "react";
+import CreateComment from "../TableFunctions/CreateComment";
 import SendMessage from "../TableFunctions/SendMessage";
+import ShowComment from "../TableFunctions/ShowComment";
+import ShowStatus from "../TableFunctions/ShowStatus";
 
 const OrdersTable = ({ data = [], currentPage = 1 }) => {
   return (
@@ -43,11 +46,16 @@ const OrdersTable = ({ data = [], currentPage = 1 }) => {
                 </TableCell>
                 <TableCell align="right">{order.phone}</TableCell>
                 <TableCell align="right">{order.course?.name}</TableCell>
-                <TableCell align="right">{order.order_status}</TableCell>
-                <TableCell align="right">{order.order_comment}</TableCell>
+                <TableCell align="right"><ShowStatus status={order.order_status}/></TableCell>
+                <TableCell align="right">
+                  <ShowComment text={order.order_comment} />
+                </TableCell>
                 <TableCell align="right">{dayjs(order.createdAt).format("DD-MM-YYYY")}</TableCell>
                 <TableCell align="right">
-                  <SendMessage userId={order.lead?.user_id}/>
+                  <div style={{ display: "flex" }}>
+                    <SendMessage userId={order.lead?.user_id} />
+                    <CreateComment userId={order.lead?.id} />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

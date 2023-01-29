@@ -17,6 +17,9 @@ export const courseSlice = createSlice({
     setCourseCount(state, action) {
       state.count++;
     },
+    setCoursePage(state, action) {
+      state.currentPage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCourse.fulfilled, (state, action) => {
@@ -30,7 +33,7 @@ export const courseSlice = createSlice({
     builder.addCase(fetchCourse.rejected, (state) => {
       state.isLoading = false;
       state.data = [];
-      state.total = 0
+      state.total = 0;
     });
     builder.addCase(createCourse.fulfilled, (state, action) => {
       state.isSending = false;
@@ -45,6 +48,6 @@ export const courseSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
- export const { setCourseCount } = courseSlice.actions;
+export const { setCourseCount, setCoursePage } = courseSlice.actions;
 
 export default courseSlice.reducer;

@@ -19,7 +19,7 @@ const CreateComment = ({ userId = 0 }) => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(createLeadsComment({ user_id: userId, comment: text }));
+    await dispatch(createLeadsComment({ id: userId, comment: text }));
     dispatch(setLeadsCount());
     handleClose();
     setText("");

@@ -4,11 +4,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CourseTable from "../../components/Tables/CourseTable";
 import { createCourse, fetchCourse } from "../../redux/course/asyncActions";
-import { setCourseCount } from "../../redux/course/slice";
+import { setCourseCount, setCoursePage } from "../../redux/course/slice";
 import styles from "./Courses.module.scss";
+import CustomPagination from "../../components/CustomPagination";
 const Courses = () => {
   const dispatch = useDispatch();
-  const { data, isLoading, isSending, count } = useSelector((state) => state.course);
+  const { data, isLoading, isSending, currentPage, total, count } = useSelector((state) => state.course);
   const [drawer, setDrawer] = React.useState(false);
   const [form, updateForm] = React.useReducer(
     (prev, next) => {
@@ -18,16 +19,17 @@ const Courses = () => {
   );
   React.useEffect(() => {
     (async function () {
-      await dispatch(fetchCourse());
+      await dispatch(fetchCourse({ take: 10, page: currentPage }));
     })();
-  }, [count]);
+  }, [count, currentPage]);
   const onSubmit = async (e) => {
     e.preventDefault();
     await dispatch(createCourse({ name: form.name, description: form.description }));
     dispatch(setCourseCount());
     updateForm({ name: "", description: "" });
-    setDrawer(false)
+    setDrawer(false);
   };
+
   if (data.length < 1 && isLoading) {
     return <CircularProgress />;
   }
@@ -77,7 +79,12 @@ const Courses = () => {
           </div>
         </Drawer>
       </div>
-      <CourseTable data={data} />
+      <CourseTable data={data} currentPage={currentPage}/>
+      <CustomPagination
+        currentPage={currentPage}
+        total={total}
+        handleChangePage={(value) => dispatch(setCoursePage(value))}
+      />
     </div>
   );
 };
