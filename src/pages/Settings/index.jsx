@@ -2,7 +2,7 @@ import { Button, Paper, TextField } from "@mui/material";
 import dayjs from "dayjs";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createBot, createContactInfo, fetchSetting } from "../../redux/settings/asyncActions";
+import { createBot, createContactInfo, deleteBot, fetchSetting } from "../../redux/settings/asyncActions";
 import styles from "./Settings.module.scss";
 const Settings = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,12 @@ const Settings = () => {
     await dispatch(createContactInfo({ contact: info }));
     setInfo("");
   };
+
+  const onDelete = async () => {
+    if (window.confirm("Delete bot")) {
+    await dispatch(deleteBot());
+    }
+  };
   return (
     <div className={styles.root}>
       <Paper>
@@ -38,7 +44,7 @@ const Settings = () => {
           <div className={styles.bot}>{data.contact}</div>
           <h4>Date</h4>
           <div className={styles.bot}>{dayjs(data.createdAt).format("DD-MM-YYYY")}</div>
-          <Button color="error" variant="contained">
+          <Button onClick={onDelete} color="error" variant="contained">
             Delete
           </Button>
         </div>

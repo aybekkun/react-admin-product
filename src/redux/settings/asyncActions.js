@@ -34,7 +34,7 @@ export const createBot = createAsyncThunk("settings/createBot", async (params, t
 
 export const deleteBot = createAsyncThunk("settings/deleteBot", async (_, thunkAPI) => {
   try {
-    const { data } = await $host.delete(`/setting`,);
+    const { data } = await $host.delete(`/setting`);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue("Ошибка " + error);
