@@ -15,7 +15,8 @@ export const fetchLeads = createAsyncThunk("leads/fetchLeads", async (params, th
 
 export const createLeadsComment = createAsyncThunk("leads/createLeadsComment", async (params, thunkAPI) => {
   try {
-    const { data } = await $host.patch(`/lead`, params);
+    const { id, ...comment } = params;
+    const { data } = await $host.patch(`/lead/${id}`, comment);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue("Ошибка " + error);

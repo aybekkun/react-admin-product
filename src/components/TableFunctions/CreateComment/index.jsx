@@ -5,9 +5,10 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import { useDispatch, useSelector } from "react-redux";
 import { createLeadsComment } from "../../../redux/leads/asyncActions";
 import { setLeadsCount } from "../../../redux/leads/slice";
-const CreateComment = ({ userId = 0 }) => {
+import { createOrdersComment } from "../../../redux/orders/asyncActions";
+const CreateComment = ({ type = "lead", orderId = 0, userId = 0, courseId = 0 }) => {
   const dispatch = useDispatch();
-  const { isSendingComment } = useSelector((state) => state.leads);
+  const [isSendingComment, setIsSendingComment] = React.useState(false);
   const [text, setText] = React.useState("");
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,10 +20,17 @@ const CreateComment = ({ userId = 0 }) => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(createLeadsComment({ id: userId, comment: text }));
-    dispatch(setLeadsCount());
+    setIsSendingComment(true);
+    if (type === "lead") {
+      await dispatch(createLeadsComment({ id: userId, comment: text }));
+      dispatch(setLeadsCount());
+    }
+    if (type === "order") {
+      await dispatch(createOrdersComment({ id: orderId, course: courseId, lead: userId, order_comment: text }));
+    }
     handleClose();
     setText("");
+    setIsSendingComment(false);
   };
   const open = Boolean(anchorEl);
   return (

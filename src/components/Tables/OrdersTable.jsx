@@ -42,11 +42,13 @@ const OrdersTable = ({ data = [], currentPage = 1 }) => {
               <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell>{i + 1}</TableCell>
                 <TableCell component="th" scope="row">
-                  {order.FIO}
+                {order.FIO.slice(0, 32)}
                 </TableCell>
                 <TableCell align="right">{order.phone}</TableCell>
                 <TableCell align="right">{order.course?.name}</TableCell>
-                <TableCell align="right"><ShowStatus status={order.order_status}/></TableCell>
+                <TableCell align="right">
+                  <ShowStatus status={order.order_status} />
+                </TableCell>
                 <TableCell align="right">
                   <ShowComment text={order.order_comment} />
                 </TableCell>
@@ -54,7 +56,12 @@ const OrdersTable = ({ data = [], currentPage = 1 }) => {
                 <TableCell align="right">
                   <div style={{ display: "flex" }}>
                     <SendMessage userId={order.lead?.user_id} />
-                    <CreateComment userId={order.lead?.id} />
+                    <CreateComment
+                      orderId={order.id}
+                      courseId={order.course?.id}
+                      type="order"
+                      userId={order.lead?.id}
+                    />
                   </div>
                 </TableCell>
               </TableRow>

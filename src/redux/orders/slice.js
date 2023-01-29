@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchOrders } from "./asyncActions";
+import { createOrdersComment, fetchOrders } from "./asyncActions";
 
 const initialState = {
   data: [],
   total: 0,
   currentPage: 1,
   isLoading: false,
-
+  isSendingComment: false,
+  
 };
 
 export const ordersSlice = createSlice({
@@ -31,7 +32,15 @@ export const ordersSlice = createSlice({
       state.data = [];
       state.total = 0;
     });
-    
+    builder.addCase(createOrdersComment.fulfilled, (state, action) => {
+      state.isSendingComment = false;
+    });
+    builder.addCase(createOrdersComment.pending, (state) => {
+      state.isSendingComment = true;
+    });
+    builder.addCase(createOrdersComment.rejected, (state) => {
+      state.isSendingComment = false;
+    });
   },
 });
 

@@ -13,3 +13,12 @@ export const fetchOrders = createAsyncThunk("orders/fetchOrders", async (params,
   }
 });
 
+export const createOrdersComment = createAsyncThunk("orders/createOrdersComment", async (params, thunkAPI) => {
+  try {
+    const { id, ...comment } = params;
+    const { data } = await $host.patch(`/order/${id}`, comment);
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue("Ошибка " + error);
+  }
+});
