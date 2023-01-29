@@ -10,6 +10,7 @@ import search from "./search/slice";
 import course from "./course/slice";
 import instruments from "./instruments/slice";
 import settings from "./settings/slice";
+import publicFrom from "./publicForm/slice"
 const persistConfig = {
   key: "root",
   version: 1,
@@ -26,7 +27,8 @@ const store = configureStore({
     orders,
     course,
     instruments,
-    settings
+    settings,
+    publicFrom
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
