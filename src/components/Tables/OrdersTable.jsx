@@ -40,9 +40,9 @@ const OrdersTable = ({ data = [], currentPage = 1 }) => {
           <TableBody>
             {data.map((order, i) => (
               <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell>{i + 1}</TableCell>
+                <TableCell>{(currentPage - 1) * 10 + i + 1}</TableCell>
                 <TableCell component="th" scope="row">
-                {order.FIO.slice(0, 32)}
+                  {order.FIO.slice(0, 32)}
                 </TableCell>
                 <TableCell align="right">{order.phone}</TableCell>
                 <TableCell align="right">{order.course?.name}</TableCell>

@@ -5,6 +5,7 @@ import CustomPagination from "../../components/CustomPagination";
 import Filter from "../../components/Filter";
 import OrdersTable from "../../components/Tables/OrdersTable";
 import { fetchOrders } from "../../redux/orders/asyncActions";
+import { setOrderPage } from "../../redux/orders/slice";
 import { setSearchClean } from "../../redux/search/slice";
 import styles from "./Orders.module.scss";
 const Orders = () => {
@@ -41,11 +42,16 @@ const Orders = () => {
     dispatch(setSearchClean());
     await dispatch(fetchOrders({ page: 1, take: 10 }));
   };
+
   return (
     <div className={styles.root}>
       <Filter onSearch={onSearch} onClean={onClean} />
       <OrdersTable data={data} />
-      <CustomPagination currentPage={currentPage} total={total} />
+      <CustomPagination
+        handleChangePage={(value) => dispatch(setOrderPage(value))}
+        currentPage={currentPage}
+        total={total}
+      />
     </div>
   );
 };

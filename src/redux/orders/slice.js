@@ -45,6 +45,6 @@ export const ordersSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setLeadPage } = ordersSlice.actions;
+export const { setOrderPage } = ordersSlice.actions;
 
 export default ordersSlice.reducer;
