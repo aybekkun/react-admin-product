@@ -15,21 +15,29 @@ const Courses = () => {
     (prev, next) => {
       return { ...prev, ...next };
     },
-    { name: "", description: "" }
+    { type: "create", name: "", description: "" }
   );
   React.useEffect(() => {
     (async function () {
       await dispatch(fetchCourse({ take: 10, page: currentPage }));
     })();
   }, [count, currentPage]);
+  const onEdit = async ({ type, name, description }) => {
+    setDrawer(true)
+    updateForm({ type, name, description });
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
+    
     await dispatch(createCourse({ name: form.name, description: form.description }));
     dispatch(setCourseCount());
-    updateForm({ name: "", description: "" });
+    updateForm({ type: "create", name: "", description: "" });
     setDrawer(false);
   };
-
+  const onCreate = () => {
+    updateForm({ type: "create" });
+    setDrawer(true);
+  };
   if (data.length < 1 && isLoading) {
     return <CircularProgress />;
   }
@@ -37,7 +45,7 @@ const Courses = () => {
   return (
     <div className={styles.root}>
       <div className={styles.actions}>
-        <Button onClick={() => setDrawer(true)} size="small" variant="contained" startIcon={<AddIcon />}>
+        <Button onClick={onCreate} size="small" variant="contained" startIcon={<AddIcon />}>
           Add course
         </Button>
         <Drawer anchor={"right"} open={drawer} onClose={() => setDrawer(false)}>
@@ -79,7 +87,7 @@ const Courses = () => {
           </div>
         </Drawer>
       </div>
-      <CourseTable data={data} currentPage={currentPage}/>
+      <CourseTable data={data} currentPage={currentPage} onEdit={(obj) => onEdit(obj)} />
       <CustomPagination
         currentPage={currentPage}
         total={total}

@@ -46,10 +46,10 @@ const LeadsTable = ({ data, currentPage = 1 }) => {
                 <TableCell align="right">{lead.phone}</TableCell>
                 <TableCell align="right">{lead.instrument?.name}</TableCell>
                 <TableCell align="right">
-                  <ShowStatus status={lead.status} />
+                  <ShowStatus userId={lead.id} status={lead.real_status} />
                 </TableCell>
                 <TableCell align="right">
-                  <ShowComment text={lead.comment} />
+                  <ShowComment text={lead.comment}  />
                 </TableCell>
                 <TableCell align="right">{dayjs(lead.createdAt).format("DD-MM-YYYY")}</TableCell>
                 <TableCell align="right">

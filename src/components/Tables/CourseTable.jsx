@@ -1,26 +1,22 @@
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import {
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow
-} from "@mui/material";
+import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import dayjs from "dayjs";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteCourse } from "../../redux/course/asyncActions";
 import { setCourseCount } from "../../redux/course/slice";
-const CourseTable = ({ data, currentPage = 1 }) => {
+
+import EditIcon from "@mui/icons-material/Edit";
+const CourseTable = ({ data, currentPage = 1, onEdit }) => {
   const dispatch = useDispatch();
   const onDelete = async (id) => {
     if (window.confirm("Delete course?")) {
       await dispatch(deleteCourse({ id: id }));
       dispatch(setCourseCount());
     }
+  };
+  const onClickEdit = async (name, description) => {
+    onEdit({ type: "edit", name: name, description: description });
   };
   return (
     <div>
@@ -57,6 +53,9 @@ const CourseTable = ({ data, currentPage = 1 }) => {
                 <TableCell align="right">{course.clicked}</TableCell>
                 <TableCell align="right">{dayjs(course.createdAt).format("DD-MM-YYYY")}</TableCell>
                 <TableCell align="right">
+                  <IconButton onClick={() => onClickEdit(course.name, course.description)} color="primary">
+                    <EditIcon />
+                  </IconButton>
                   <IconButton onClick={() => onDelete(course.id)} color="error">
                     <DeleteOutlineOutlinedIcon />
                   </IconButton>

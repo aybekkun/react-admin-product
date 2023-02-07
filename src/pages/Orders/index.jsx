@@ -46,7 +46,7 @@ const Orders = () => {
   return (
     <div className={styles.root}>
       <Filter onSearch={onSearch} onClean={onClean} />
-      <OrdersTable data={data} />
+      <OrdersTable data={data} currentPage={currentPage} />
       <CustomPagination
         handleChangePage={(value) => dispatch(setOrderPage(value))}
         currentPage={currentPage}

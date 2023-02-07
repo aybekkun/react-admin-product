@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "latest",
     "dayjs": "^1.11.7",
+    "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-imask": "^6.4.3",

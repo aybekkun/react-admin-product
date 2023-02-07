@@ -23,9 +23,7 @@ const OrdersTable = ({ data = [], currentPage = 1 }) => {
               <TableCell sx={{ width: "100px" }} align="right">
                 Course
               </TableCell>
-              <TableCell sx={{ width: "100px" }} align="right">
-                Status
-              </TableCell>
+
               <TableCell sx={{ width: "15%" }} align="right">
                 Comment
               </TableCell>
@@ -46,9 +44,6 @@ const OrdersTable = ({ data = [], currentPage = 1 }) => {
                 </TableCell>
                 <TableCell align="right">{order.phone}</TableCell>
                 <TableCell align="right">{order.course?.name}</TableCell>
-                <TableCell align="right">
-                  <ShowStatus status={order.order_status} />
-                </TableCell>
                 <TableCell align="right">
                   <ShowComment text={order.order_comment} />
                 </TableCell>

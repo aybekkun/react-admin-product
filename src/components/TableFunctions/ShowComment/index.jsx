@@ -14,30 +14,13 @@ const ShowComment = ({ text = "" }) => {
   const open = Boolean(anchorEl);
   return (
     <div className={styles.root}>
-      <IconButton sx={{ marginLeft: "10px" }} onClick={handleClick} color="primary" size="small">
-        <RemoveRedEyeOutlinedIcon />
-      </IconButton>
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
-      >
-        {text ? (
-          <div className={styles.content}>
-            <p>{text}</p>
-          </div>
-        ) : (
-          <p className={styles.content}>No comments</p>
-        )}
-      </Popover>
+      {text ? (
+        <div className={styles.content}>
+          <p>{text}</p>
+        </div>
+      ) : (
+        <p className={styles.content}>No comments</p>
+      )}
     </div>
   );
 };
