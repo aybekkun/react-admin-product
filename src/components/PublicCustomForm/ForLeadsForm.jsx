@@ -36,7 +36,6 @@ const ForLeadsForm = ({ onClose = () => undefined, onFetch = () => undefined }) 
   }, []);
   const onSubmit = async (e) => {
     e.preventDefault();
-
     await dispatch(
       createLead({
         FIO: form.username,

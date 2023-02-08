@@ -38,15 +38,7 @@ const InstrumentsTable = ({ data, currentPage = 1 }) => {
                 <TableCell align="right">{item.clicked}</TableCell>
                 <TableCell align="right">{item.distribution}</TableCell>
                 <TableCell align="right">{item.type}</TableCell>
-                <TableCell align="right">
-                  <IconButton
-                    onClick={() => {
-                      navigator.clipboard.writeText(item.link);
-                    }}
-                  >
-                    <ContentCopyIcon />
-                  </IconButton>
-                </TableCell>
+                <TableCell align="right">{item.link}</TableCell>
                 <TableCell align="right">{dayjs(item.createdAt).format("DD-MM-YYYY")}</TableCell>
               </TableRow>
             ))}
