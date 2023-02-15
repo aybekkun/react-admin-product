@@ -60,6 +60,7 @@ const LeadStatus = () => {
     setStatusId(id);
     setStatus(name);
   };
+  
   return (
     <Box mt={2} component={Paper} p={3} width={400} minHeight={200}>
       <Typography variant="h5" color="primary">

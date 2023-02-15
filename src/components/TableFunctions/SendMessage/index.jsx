@@ -9,6 +9,7 @@ const SendMessage = ({ userId = 0 }) => {
   const dispatch = useDispatch();
   const { isSendingMessage } = useSelector((state) => state.settings);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  
   const [image, setImage] = React.useState(null);
   const [text, setText] = React.useState("");
   const handleClick = (event) => {
@@ -65,7 +66,7 @@ const SendMessage = ({ userId = 0 }) => {
             <form onSubmit={onSubmit}>
               <h3>Text</h3>
               <textarea
-                maxLength={500}
+                maxLength={10000}
                 onChange={(e) => setText(e.target.value)}
                 name="message"
                 cols="30"
